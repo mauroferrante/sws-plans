@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Plans — Simply Wall St (v2)</title>
+<title>Plans | Simply Wall St (v2)</title>
 <style>
   :root {
     --bg: #f5f0e8;
@@ -250,7 +250,7 @@
   /* ---------- Risk reversal: shared across all plans ---------- */
   .risk-cards {
     background: #fff; border: 1px solid var(--line); border-radius: 12px;
-    padding: 22px 0; margin: 36px 0 8px;
+    padding: 24px 22px 26px; margin: 36px 0 8px;
   }
   .risk-cards-label {
     text-align: center; font-size: 11px; font-weight: 700;
@@ -258,20 +258,24 @@
     text-transform: uppercase; margin-bottom: 18px;
   }
   .risk-cards-items {
-    display: grid; grid-template-columns: repeat(3, 1fr); align-items: stretch;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 18px; align-items: stretch;
   }
   .risk-card {
-    padding: 0 22px; display: flex; gap: 14px; align-items: flex-start;
+    padding: 0 4px; display: flex; gap: 14px; align-items: flex-start;
   }
-  .risk-card + .risk-card { border-left: 1px solid var(--line); }
+  .risk-card + .risk-card { border-left: none; }
   .risk-card .ic {
-    width: 38px; height: 38px; border-radius: 8px;
+    width: 44px; height: 44px; border-radius: 8px;
     background: var(--green-soft); color: var(--green);
     display: inline-flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .risk-card h4 { margin: 0 0 4px; font-size: 14px; font-weight: 700; }
-  .risk-card p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .risk-card .ic.ic-refund { background: var(--green-soft); color: var(--green); }
+  .risk-card .ic.ic-cancel { background: #f1ead9; color: var(--ink); }
+  .risk-card .ic.ic-tax { background: rgba(245, 184, 67, .18); color: var(--gold-deep); }
+  .risk-card h4 { margin: 0 0 4px; font-size: 15px; font-weight: 700; }
+  .risk-card p { margin: 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
 
   /* ---------- Pills "all paid plans include" ---------- */
   .all-include { text-align: center; margin: 36px 0 0; }
@@ -472,13 +476,10 @@
     /* Urgency banner: smaller text, tighter padding */
     .urgency { font-size: 12px; padding: 8px 14px; line-height: 1.4; }
 
-    /* Risk-reversal: stack vertically with horizontal dividers */
-    .risk-cards-items { grid-template-columns: 1fr; }
-    .risk-card { padding: 18px 22px; }
-    .risk-card + .risk-card {
-      border-left: 0;
-      border-top: 1px solid var(--line);
-    }
+    /* Risk-reversal: stack vertically as soft cards */
+    .risk-cards-items { grid-template-columns: 1fr; gap: 14px; }
+    .risk-card { padding: 14px 16px; background: #fafafa; border-radius: 10px; }
+    .risk-card + .risk-card { border-left: 0; border-top: 0; }
 
     /* Trust strip: drop separators and parenthetical review counts */
     .trust-strip .sep { display: none; }
@@ -508,7 +509,7 @@
 <!-- ============ Urgency banner ============ -->
 <div class="urgency" role="region" aria-label="Limited offer">
   <span aria-hidden="true">⏱</span>
-  Limited offer: <strong>40% off your first year</strong> — offer expires in <span id="countdown">12d 03h 01m 27s</span>
+  Limited offer: <strong>40% off your first year</strong>. Offer expires in <span id="countdown">12d 03h 01m 27s</span>
 </div>
 
 <!-- ============ Header ============ -->
@@ -548,9 +549,10 @@
     </span>
     <span class="sep"></span>
     <span class="item">
-      <span style="background:#00b67a;color:#fff;padding:3px 5px;border-radius:3px;font-weight:700;font-size:12px;">★ Trustpilot</span>
       <span class="score">4.3</span>
+      <span class="stars" aria-hidden="true">★★★★☆</span>
       <span class="review-count" style="color:var(--muted);">(5K)</span>
+      <span style="background:#00b67a;color:#fff;padding:3px 5px;border-radius:3px;font-weight:700;font-size:12px;">★ Trustpilot</span>
     </span>
     <span class="sep"></span>
     <span class="item">
@@ -582,7 +584,6 @@
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>1 Standard Portfolio · 10 holdings</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>2 Watchlists · 30 stocks</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>1 saved screener &amp; alert</li>
-        <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Standard equity curve &amp; dividend analysis</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Basic email updates on holdings &amp; watchlists</li>
         <li class="muted"><span class="x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span>Broker linking</li>
         <li class="muted"><span class="x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span>AI Chat (Beta)</li>
@@ -609,7 +610,7 @@
         <span class="price-suffix">/mo</span>
         <span class="price-strike">$10.95</span>
       </div>
-      <div class="price-billed">$78.84 billed yearly · less than $0.22 / day</div>
+      <div class="price-billed">$78.84 billed yearly</div>
 
       <div class="save-pill">
         <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
@@ -623,12 +624,11 @@
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>3 Advanced Portfolios · 30 holdings each</li>
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>5 Watchlists · 100 stocks</li>
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>5 saved screeners &amp; alerts</li>
-        <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Advanced equity curve &amp; dividend analysis</li>
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Smart updates on holdings &amp; watchlists</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span><span class="tip-wrap" tabindex="0">Broker linking<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Connect to 2,000+ brokers across the US &amp; Canada, plus major brokers in Europe &amp; Asia.</span></span></li>
-        <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Unlimited AI Chat (Beta)</li>
+        <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>AI Chat (Beta)</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Priority Support</li>
-        <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Export to Excel &amp; PDF</li>
+        <li class="muted"><span class="x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span>Export to Excel &amp; PDF</li>
       </ul>
 
       <div class="cta-area">
@@ -649,7 +649,7 @@
         <span class="price-suffix">/mo</span>
         <span class="price-strike">$21.50</span>
       </div>
-      <div class="price-billed">$154.80 billed yearly · less than $0.43 / day</div>
+      <div class="price-billed">$154.80 billed yearly</div>
 
       <div class="save-pill">
         <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
@@ -663,10 +663,9 @@
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Unlimited Advanced Portfolios &amp; holdings</li>
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>10 Watchlists · 300 stocks</li>
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>10 saved screeners &amp; alerts</li>
-        <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Advanced equity curve &amp; dividend analysis</li>
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Smart updates on holdings &amp; watchlists</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span><span class="tip-wrap" tabindex="0">Broker linking<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Connect to 2,000+ brokers across the US &amp; Canada, plus major brokers in Europe &amp; Asia.</span></span></li>
-        <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Unlimited AI Chat (Beta)</li>
+        <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>AI Chat (Beta)</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Priority Support</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Export to Excel &amp; PDF</li>
       </ul>
@@ -682,17 +681,17 @@
   <div class="risk-cards">
     <div class="risk-cards-items">
       <div class="risk-card">
-        <span class="ic">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6z"/><polyline points="9 12 11 14 15 10"/></svg>
+        <span class="ic ic-refund">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6z"/><polyline points="9 12 11 14 15 10"/></svg>
         </span>
         <div>
           <h4>14-day full refund</h4>
-          <p>Not the right fit? Email us within 14 days and we'll refund every cent — no questions asked.</p>
+          <p>Not the right fit? Email us within 14 days and we'll refund every cent. No questions asked.</p>
         </div>
       </div>
       <div class="risk-card">
-        <span class="ic">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="8 12 11 15 16 9"/></svg>
+        <span class="ic ic-cancel">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="8 12 11 15 16 9"/></svg>
         </span>
         <div>
           <h4>Cancel in 2 clicks</h4>
@@ -700,8 +699,8 @@
         </div>
       </div>
       <div class="risk-card">
-        <span class="ic">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span class="ic ic-tax">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><line x1="9" y1="14" x2="15" y2="8"/><circle cx="9.5" cy="9" r="1"/><circle cx="14.5" cy="13.5" r="1"/></svg>
         </span>
         <div>
           <h4>Tax deductible</h4>
@@ -744,6 +743,7 @@
         </tr>
         <tr><td>Global market access</td><td class="check-cell">✓</td><td class="col-premium check-cell">✓</td><td class="check-cell">✓</td></tr>
         <tr><td>Curated investment ideas</td><td>Limited</td><td class="col-premium">Unlimited</td><td>Unlimited</td></tr>
+        <tr><td>Community Narratives</td><td>Unlimited</td><td class="col-premium">Unlimited</td><td>Unlimited</td></tr>
         <tr><td>Sample portfolios</td><td class="check-cell">✓</td><td class="col-premium check-cell">✓</td><td class="check-cell">✓</td></tr>
         <tr><td>Saved screeners &amp; alerts</td><td>1</td><td class="col-premium">5</td><td>10</td></tr>
 
@@ -755,7 +755,7 @@
         </tr>
         <tr><td>Company stock reports</td><td>5/mo</td><td class="col-premium">30/mo</td><td>Unlimited</td></tr>
         <tr><td>AI Chat (Beta)</td><td>—</td><td class="col-premium">Unlimited</td><td>Unlimited</td></tr>
-        <tr><td>Export to Excel &amp; PDF</td><td>—</td><td class="col-premium check-cell">✓</td><td class="check-cell">✓</td></tr>
+        <tr><td>Export to Excel &amp; PDF</td><td>—</td><td class="col-premium">—</td><td class="check-cell">✓</td></tr>
         <tr><td>Ad-free experience</td><td>—</td><td class="col-premium check-cell">✓</td><td class="check-cell">✓</td></tr>
 
         <tr class="section-row">
@@ -764,13 +764,13 @@
           <td class="h" style="background:#f1ead9;color:var(--ink);">Premium</td>
           <td class="h">Unlimited</td>
         </tr>
-        <tr><td>Number of portfolios</td><td>1 Standard</td><td class="col-premium">3 Advanced</td><td>Unlimited Advanced</td></tr>
+        <tr><td>Number of portfolios</td><td>1 <span class="tip-wrap" tabindex="0">Standard<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span></td><td class="col-premium">3 <span class="tip-wrap" tabindex="0">Advanced<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span></td><td>Unlimited <span class="tip-wrap" tabindex="0">Advanced<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span></td></tr>
         <tr><td>Holdings per portfolio</td><td>10</td><td class="col-premium">30</td><td>Unlimited</td></tr>
         <tr><td>Number of watchlists</td><td>2</td><td class="col-premium">5</td><td>10</td></tr>
         <tr><td>Stocks per watchlist</td><td>30</td><td class="col-premium">100</td><td>300</td></tr>
-        <tr><td>Equity curve</td><td>Limited</td><td class="col-premium">Unlimited</td><td>Unlimited</td></tr>
+        <tr><td>Equity curve</td><td>Last 12 months</td><td class="col-premium">Since inception (+ stacked)</td><td>Since inception (+ stacked)</td></tr>
         <tr><td>Holdings table views</td><td>2</td><td class="col-premium">7 + custom view</td><td>7 + custom view</td></tr>
-        <tr><td>Dividend analysis</td><td>Standard</td><td class="col-premium">Advanced</td><td>Advanced</td></tr>
+        <tr><td>Dividend analysis</td><td>Limited</td><td class="col-premium">Unlimited</td><td>Unlimited</td></tr>
         <tr><td>Shareable portfolios</td><td class="check-cell">✓</td><td class="col-premium check-cell">✓</td><td class="check-cell">✓</td></tr>
         <tr><td>Broker linking</td><td>—</td><td class="col-premium check-cell">✓</td><td class="check-cell">✓</td></tr>
         <tr><td>Smart updates on holdings &amp; watchlists</td><td>Basic only</td><td class="col-premium check-cell">✓</td><td class="check-cell">✓</td></tr>
@@ -784,22 +784,22 @@
 <!-- ============ Value strip ============ -->
 <section class="value-strip">
   <div class="container">
-    <h2>What's <span class="accent">one better stock pick</span> worth?</h2>
-    <p class="lede">A year of Premium costs less than a single trading commission at most brokers. Here's what you'd pay elsewhere for similar insight.</p>
+    <h2>Cheaper than your <span class="accent">morning coffee</span></h2>
+    <p class="lede">From about 22¢ a day, Premium costs less than the things you barely think about, and could pay for itself with a single better decision.</p>
     <div class="value-grid">
       <div class="value-card">
-        <div class="vlabel">A 1-hour advisor session</div>
-        <div class="vamount">$200+</div>
-        <div class="vsub">Single sitting, single opinion</div>
+        <div class="vlabel">A daily coffee</div>
+        <div class="vamount">$5<span style="font-size:14px;color:#948a76;">/day</span></div>
+        <div class="vsub">$1,825/year, forgotten by lunchtime</div>
       </div>
       <div class="value-card">
-        <div class="vlabel">A Bloomberg terminal seat</div>
-        <div class="vamount">$24,000<span style="font-size:14px;color:#948a76;">/yr</span></div>
-        <div class="vsub">Built for institutions, not investors</div>
+        <div class="vlabel">A streaming subscription</div>
+        <div class="vamount">$0.51<span style="font-size:14px;color:#948a76;">/day</span></div>
+        <div class="vsub">$186/year of background noise</div>
       </div>
       <div class="value-card">
         <div class="vlabel">Simply Wall St Premium</div>
-        <div class="vamount us">$78.84<span style="font-size:14px;">/yr</span></div>
+        <div class="vamount us">From $0.22<span style="font-size:14px;">/day</span></div>
         <div class="vsub">120K+ stocks, your portfolio, every week</div>
       </div>
     </div>
@@ -833,7 +833,7 @@
       <div class="testimonial">
         <div class="t-head"><div class="avatar"></div><div><div class="t-name">Jacob</div><div class="t-meta">Local Guide · 51 reviews</div></div></div>
         <div class="stars-row"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <p class="quote">Incredible, simply brilliant. The info this site finds and presents is unreal — you couldn't obtain this without weeks of intensive research.</p>
+        <p class="quote">Incredible, simply brilliant. The info this site finds and presents is unreal. You couldn't obtain this without weeks of intensive research.</p>
       </div>
       <div class="testimonial">
         <div class="t-head"><div class="avatar b"></div><div><div class="t-name">DA-Wiz</div><div class="t-meta">@hoss_wizzard</div></div></div>
@@ -960,7 +960,7 @@
 
 <!-- ============ Sticky bottom CTA bar ============ -->
 <div class="sticky-bar" id="stickyBar" role="region" aria-label="Quick start">
-  <span class="msg">⏱ <strong>40% off your first year</strong> — your trial includes 7 days of Premium, free.</span>
+  <span class="msg">⏱ <strong>40% off your first year</strong>. Your trial includes 7 days of Premium, free.</span>
   <a href="#plans" class="btn btn-gold">Start your 7-day free trial</a>
   <button class="close-btn" id="closeSticky" aria-label="Dismiss">×</button>
 </div>
@@ -1018,12 +1018,12 @@
     if (!buttons.length) return;
 
     var promoPrice = {
-      premium: { price: '$6.57', strike: '$10.95', billed: '$78.84 billed yearly · less than $0.22 / day', mo: '$6.57' },
-      unlimited: { price: '$12.90', strike: '$21.50', billed: '$154.80 billed yearly · less than $0.43 / day', mo: '$12.90' }
+      premium: { price: '$6.57', strike: '$10.95', billed: '$78.84 billed yearly', mo: '$6.57' },
+      unlimited: { price: '$12.90', strike: '$21.50', billed: '$154.80 billed yearly', mo: '$12.90' }
     };
     var fullPrice = {
-      premium: { price: '$10.95', strike: '', billed: '$131.40 billed yearly · less than $0.36 / day', mo: '$10.95' },
-      unlimited: { price: '$21.50', strike: '', billed: '$258.00 billed yearly · less than $0.72 / day', mo: '$21.50' }
+      premium: { price: '$10.95', strike: '', billed: '$131.40 billed yearly', mo: '$10.95' },
+      unlimited: { price: '$21.50', strike: '', billed: '$258.00 billed yearly', mo: '$21.50' }
     };
 
     var states = {
