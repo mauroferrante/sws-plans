@@ -633,7 +633,7 @@
 
       <div class="cta-area">
         <button class="btn btn-gold btn-block">Start your 7-day free trial</button>
-        <div class="cta-micro"><strong style="color:var(--green);">No credit card required</strong><br>Then <strong style="color:var(--ink);">$6.57/mo</strong> billed yearly · cancel anytime</div>
+        <div class="cta-micro"><strong style="color:var(--green);">No credit card required</strong><br>cancel anytime</div>
       </div>
     </article>
 
@@ -672,7 +672,7 @@
 
       <div class="cta-area">
         <button class="btn btn-dark btn-block">Start your 7-day free trial</button>
-        <div class="cta-micro"><strong style="color:var(--green);">No credit card required</strong><br>Then <strong style="color:var(--ink);">$12.90/mo</strong> billed yearly · cancel anytime</div>
+        <div class="cta-micro"><strong style="color:var(--green);">No credit card required</strong><br>cancel anytime</div>
       </div>
     </article>
   </div>
@@ -768,7 +768,7 @@
         <tr><td>Number of portfolios</td><td>1 <span class="tip-wrap" tabindex="0">Standard<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span></td><td class="col-premium">3 <span class="tip-wrap" tabindex="0">Advanced<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span></td><td>Unlimited <span class="tip-wrap" tabindex="0">Advanced<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span></td></tr>
         <tr><td>Holdings per portfolio</td><td>10</td><td class="col-premium">30</td><td>Unlimited</td></tr>
         <tr><td>Number of watchlists</td><td>2</td><td class="col-premium">10</td><td>Unlimited</td></tr>
-        <tr><td>Stocks per watchlist</td><td>30</td><td class="col-premium">100</td><td>300</td></tr>
+        <tr><td>Stocks per watchlist</td><td>30</td><td class="col-premium">100</td><td>100</td></tr>
         <tr><td>Equity curve</td><td>Last 12 months</td><td class="col-premium">Since inception (+ stacked)</td><td>Since inception (+ stacked)</td></tr>
         <tr><td>Holdings table views</td><td>2</td><td class="col-premium">7 + custom view</td><td>7 + custom view</td></tr>
         <tr><td>Dividend analysis</td><td>Limited</td><td class="col-premium">Unlimited</td><td>Unlimited</td></tr>
@@ -1040,13 +1040,13 @@
           premium: {
             text: 'Start your 7-day free trial',
             cls: 'btn btn-block btn-gold',
-            microFn: function(mo) { return '<strong style="color:var(--green);">No credit card required</strong><br>Then <strong style="color:var(--ink);">' + mo + '/mo</strong> billed yearly · cancel anytime'; },
+            microFn: function() { return '<strong style="color:var(--green);">No credit card required</strong><br>cancel anytime'; },
             disabled: false
           },
           unlimited: {
             text: 'Start your 7-day free trial',
             cls: 'btn btn-block btn-dark',
-            microFn: function(mo) { return '<strong style="color:var(--green);">No credit card required</strong><br>Then <strong style="color:var(--ink);">' + mo + '/mo</strong> billed yearly · cancel anytime'; },
+            microFn: function() { return '<strong style="color:var(--green);">No credit card required</strong><br>cancel anytime'; },
             disabled: false
           }
         }
@@ -1057,11 +1057,11 @@
           free: { text: 'Current plan', cls: 'btn btn-block btn-muted', micro: '', disabled: true },
           premium: {
             text: 'Upgrade', cls: 'btn btn-block btn-gold', disabled: false,
-            microFn: function(mo) { return 'Then <strong style="color:var(--ink);">' + mo + '/mo</strong> billed yearly · cancel anytime'; }
+            microFn: function() { return 'cancel anytime'; }
           },
           unlimited: {
             text: 'Upgrade', cls: 'btn btn-block btn-dark', disabled: false,
-            microFn: function(mo) { return 'Then <strong style="color:var(--ink);">' + mo + '/mo</strong> billed yearly · cancel anytime'; }
+            microFn: function() { return 'cancel anytime'; }
           }
         }
       },
@@ -1071,11 +1071,11 @@
           free: { text: 'Current plan', cls: 'btn btn-block btn-muted', micro: '', disabled: true },
           premium: {
             text: 'Upgrade', cls: 'btn btn-block btn-gold', disabled: false,
-            microFn: function(mo) { return 'Then <strong style="color:var(--ink);">' + mo + '/mo</strong> billed yearly · cancel anytime'; }
+            microFn: function() { return 'cancel anytime'; }
           },
           unlimited: {
             text: 'Upgrade', cls: 'btn btn-block btn-dark', disabled: false,
-            microFn: function(mo) { return 'Then <strong style="color:var(--ink);">' + mo + '/mo</strong> billed yearly · cancel anytime'; }
+            microFn: function() { return 'cancel anytime'; }
           }
         }
       }
