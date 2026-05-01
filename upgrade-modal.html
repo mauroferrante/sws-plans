@@ -172,6 +172,31 @@
     width: 14px; height: 14px;
   }
 
+  /* Feature tooltip (e.g. Advanced Portfolios) */
+  .tip-wrap {
+    position: relative; cursor: help;
+    text-decoration: underline dotted; text-decoration-color: var(--muted);
+    text-decoration-thickness: 1px; text-underline-offset: 3px;
+  }
+  .tip-wrap .tip {
+    position: absolute; bottom: calc(100% + 10px); left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark); color: #fff;
+    font-size: 12px; font-weight: 400; line-height: 1.45;
+    padding: 10px 12px; border-radius: 8px;
+    width: 240px; text-align: left;
+    opacity: 0; visibility: hidden;
+    transition: opacity .15s ease, visibility .15s ease;
+    pointer-events: none; z-index: 20;
+    box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  }
+  .tip-wrap .tip::after {
+    content: ''; position: absolute; top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: var(--dark);
+  }
+  .tip-wrap:hover .tip, .tip-wrap:focus-within .tip { opacity: 1; visibility: visible; }
+
   /* ---------- Buttons ---------- */
   .btn {
     display: inline-flex; align-items: center; justify-content: center;
@@ -335,7 +360,7 @@
         <div class="price-billed">$131.40 billed yearly</div>
         <ul class="features">
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>30 Company Reports per month</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>3 Advanced Portfolios · 30 holdings each</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg><span>3 <span class="tip-wrap" tabindex="0">Advanced<span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span> Portfolios · 30 holdings each</span></li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>10 Watchlists</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>10 screeners &amp; alerts · all results</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Smart updates on holdings &amp; watchlists</li>
@@ -361,10 +386,10 @@
         </div>
         <div class="price-billed">$258.00 billed yearly</div>
         <ul class="features">
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Unlimited Company Reports</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Unlimited Advanced Portfolios &amp; holdings</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Unlimited Watchlists</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Unlimited screeners &amp; alerts · all results</li>
+          <li class="bold"><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Unlimited Company Reports</li>
+          <li class="bold"><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg><span>Unlimited <span class="tip-wrap" tabindex="0">Advanced<span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span> Portfolios &amp; holdings</span></li>
+          <li class="bold"><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Unlimited Watchlists</li>
+          <li class="bold"><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Unlimited screeners &amp; alerts · all results</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Smart updates on holdings &amp; watchlists</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Broker linking</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>AI Chat (Beta)</li>

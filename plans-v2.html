@@ -145,12 +145,10 @@
   .price-billed { color: var(--muted); font-size: 13px; margin-top: 6px; min-height: 19px; }
 
   /* Feature tooltip (e.g. Brokerage Sync) */
-  .tip-wrap { position: relative; display: inline-flex; align-items: center; gap: 5px; cursor: help; }
-  .tip-wrap .tip-ic {
-    color: var(--muted); font-size: 12px; font-weight: 700;
-    width: 14px; height: 14px; border-radius: 50%;
-    display: inline-flex; align-items: center; justify-content: center;
-    border: 1px solid var(--muted); line-height: 1;
+  .tip-wrap {
+    position: relative; cursor: help;
+    text-decoration: underline dotted; text-decoration-color: var(--muted);
+    text-decoration-thickness: 1px; text-underline-offset: 3px;
   }
   .tip-wrap .tip {
     position: absolute; bottom: calc(100% + 10px); left: 50%;
@@ -581,7 +579,7 @@
 
       <ul class="features">
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>5 Company Reports per month</li>
-        <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>1 Standard Portfolio · 10 holdings</li>
+        <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span><span>1 <span class="tip-wrap" tabindex="0">Standard<span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span> Portfolio · 10 holdings</span></li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>2 Watchlists</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>1 screener &amp; alert · top 4 results</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Basic email updates on holdings &amp; watchlists</li>
@@ -621,11 +619,11 @@
 
       <ul class="features">
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>30 Company Reports per month</li>
-        <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>3 Advanced Portfolios · 30 holdings each</li>
+        <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span><span>3 <span class="tip-wrap" tabindex="0">Advanced<span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span> Portfolios · 30 holdings each</span></li>
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>10 Watchlists</li>
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>10 screeners &amp; alerts · all results</li>
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Smart updates on holdings &amp; watchlists</li>
-        <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span><span class="tip-wrap" tabindex="0">Broker linking<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Connect to 2,000+ brokers across the US &amp; Canada, plus major brokers in Europe &amp; Asia.</span></span></li>
+        <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span><span class="tip-wrap" tabindex="0">Broker linking<span class="tip" role="tooltip">Connect to 2,000+ brokers across the US &amp; Canada, plus major brokers in Europe &amp; Asia.</span></span></li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>AI Chat (Beta)</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Priority Support</li>
         <li class="muted"><span class="x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span>Export to Excel &amp; PDF</li>
@@ -660,11 +658,11 @@
 
       <ul class="features">
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Unlimited Company Reports</li>
-        <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Unlimited Advanced Portfolios &amp; holdings</li>
+        <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span><span>Unlimited <span class="tip-wrap" tabindex="0">Advanced<span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span> Portfolios &amp; holdings</span></li>
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Unlimited Watchlists</li>
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Unlimited screeners &amp; alerts · all results</li>
         <li class="bold"><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Smart updates on holdings &amp; watchlists</li>
-        <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span><span class="tip-wrap" tabindex="0">Broker linking<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Connect to 2,000+ brokers across the US &amp; Canada, plus major brokers in Europe &amp; Asia.</span></span></li>
+        <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span><span class="tip-wrap" tabindex="0">Broker linking<span class="tip" role="tooltip">Connect to 2,000+ brokers across the US &amp; Canada, plus major brokers in Europe &amp; Asia.</span></span></li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>AI Chat (Beta)</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Priority Support</li>
         <li><span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg></span>Export to Excel &amp; PDF</li>
@@ -765,7 +763,7 @@
           <td class="h" style="background:#f1ead9;color:var(--ink);">Premium</td>
           <td class="h">Unlimited</td>
         </tr>
-        <tr><td>Number of portfolios</td><td>1 <span class="tip-wrap" tabindex="0">Standard<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span></td><td class="col-premium">3 <span class="tip-wrap" tabindex="0">Advanced<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span></td><td>Unlimited <span class="tip-wrap" tabindex="0">Advanced<span class="tip-ic" aria-hidden="true">i</span><span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span></td></tr>
+        <tr><td>Number of portfolios</td><td>1 <span class="tip-wrap" tabindex="0">Standard<span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span></td><td class="col-premium">3 <span class="tip-wrap" tabindex="0">Advanced<span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span></td><td>Unlimited <span class="tip-wrap" tabindex="0">Advanced<span class="tip" role="tooltip">Advanced portfolios unlock since-inception equity curve, stacked view, full dividend history, and more...</span></span></td></tr>
         <tr><td>Holdings per portfolio</td><td>10</td><td class="col-premium">30</td><td>Unlimited</td></tr>
         <tr><td>Number of watchlists</td><td>2</td><td class="col-premium">10</td><td>Unlimited</td></tr>
         <tr><td>Stocks per watchlist</td><td>30</td><td class="col-premium">100</td><td>100</td></tr>
