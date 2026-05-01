@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Upgrade Modal | Simply Wall St</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --ink: #2a2a2a;
+    --ink-soft: #3a3a3a;
+    --muted: #6e6557;
+    --line: #e6dfd1;
+    --card: #fffdf8;
+    --gold: #f5b843;
+    --gold-deep: #c9871a;
+    --green: #2f8f4d;
+    --green-soft: #d8eddd;
+    --dark: #14181c;
+    --serif: 'Playfair Display', Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: #0a0d10;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.45;
+    min-height: 100vh;
+  }
+  /* Fake "page underneath" hint - subtle */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(245,184,67,.06), transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(47,143,77,.05), transparent 50%);
+    pointer-events: none;
+  }
+
+  /* ---------- Modal overlay + container ---------- */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(10, 13, 16, 0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 100;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 28px 24px;
+    display: flex; align-items: flex-start; justify-content: center;
+  }
+  .modal-overlay.hidden { display: none; }
+
+  .modal {
+    position: relative;
+    background: var(--bg);
+    border-radius: 18px;
+    width: 100%;
+    max-width: 1180px;
+    padding: 44px 48px 32px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.45);
+  }
+
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: transparent; border: 0; cursor: pointer;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    transition: background .15s ease, color .15s ease;
+    z-index: 2;
+  }
+  .modal-close:hover { background: rgba(0,0,0,.06); color: var(--ink); }
+  .modal-close svg { width: 18px; height: 18px; }
+
+  /* "Click to reopen" button when modal is closed */
+  .reopen-btn {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: var(--gold); color: var(--ink);
+    border: 0; border-radius: 999px;
+    padding: 16px 28px; font-weight: 700;
+    cursor: pointer; font-size: 15px; font-family: inherit;
+    box-shadow: 0 12px 36px rgba(0,0,0,.4);
+    z-index: 50;
+  }
+  .reopen-btn.hidden { display: none; }
+
+  /* ---------- Header ---------- */
+  .modal-header { text-align: center; margin-bottom: 22px; }
+  .trigger-chip {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(245, 184, 67, .14);
+    border: 1px solid rgba(201, 135, 26, .22);
+    color: var(--gold-deep);
+    font-size: 11.5px; font-weight: 700; letter-spacing: .8px;
+    text-transform: uppercase;
+    padding: 6px 14px; border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .trigger-chip .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold-deep); }
+  .trigger-chip .progress { color: var(--ink); font-weight: 800; }
+  .modal-headline {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 34px; line-height: 1.1; margin: 0 0 8px;
+    letter-spacing: -.5px;
+  }
+  .modal-headline .accent { color: var(--gold-deep); }
+  .modal-sub {
+    color: var(--muted); font-size: 15px;
+    max-width: 680px; margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* ---------- Plan grid (2-up) ---------- */
+  .plan-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    align-items: stretch;
+    margin-bottom: 16px;
+  }
+  .plan {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px 22px 20px;
+    display: flex; flex-direction: column;
+  }
+  .plan.popular { border: 2px solid var(--gold); box-shadow: 0 4px 24px rgba(245, 184, 67, .18); }
+  .ribbon {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--gold); color: var(--ink);
+    font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+    padding: 5px 11px; border-radius: 999px;
+    line-height: 1;
+  }
+  .eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.4px;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 6px;
+  }
+  .plan-name { font-family: var(--serif); font-size: 26px; font-weight: 700; margin: 0 0 4px; }
+  .plan-tag { color: var(--muted); font-size: 13.5px; min-height: 36px; line-height: 1.4; }
+  .price-row { display: flex; align-items: baseline; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .price-usd { color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .5px; }
+  .price { font-family: var(--serif); font-size: 32px; font-weight: 700; line-height: 1; }
+  .price-suffix { color: var(--muted); font-size: 13px; }
+  .price-billed { color: var(--muted); font-size: 12.5px; margin-top: 4px; }
+
+  ul.features {
+    list-style: none; padding: 0; margin: 14px 0 16px;
+    flex: 1;
+  }
+  ul.features li {
+    display: flex; align-items: flex-start; gap: 9px;
+    padding: 4.5px 0; font-size: 13px; color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  ul.features li.bold { font-weight: 600; color: var(--ink); }
+  ul.features li .check {
+    color: var(--green); flex-shrink: 0; margin-top: 2px;
+    width: 15px; height: 15px;
+  }
+  ul.features li.muted { color: var(--muted); }
+  ul.features li .x-mark {
+    color: var(--muted); flex-shrink: 0; margin-top: 2px;
+    width: 14px; height: 14px;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 12px 22px; border-radius: 8px; font-weight: 700;
+    font-size: 14.5px; cursor: pointer; border: 0;
+    transition: filter .15s ease, transform .1s ease;
+    font-family: inherit; text-decoration: none;
+  }
+  .btn:hover { filter: brightness(.96); }
+  .btn:active { transform: translateY(1px); }
+  .btn-block { width: 100%; padding: 13px 16px; font-size: 15px; }
+  .btn-gold { background: var(--gold); color: var(--ink); }
+  .btn-dark { background: var(--dark); color: #fff; }
+
+  .cta-area .micro {
+    text-align: center; color: var(--muted); font-size: 11.5px;
+    margin-top: 9px; line-height: 1.4;
+  }
+  .cta-area .micro strong { color: var(--green); }
+
+  /* ---------- Free demoted strip ---------- */
+  .free-strip {
+    display: flex; align-items: center;
+    background: rgba(0,0,0,.025);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 20px;
+    margin-bottom: 18px;
+    gap: 18px;
+  }
+  .free-strip .free-name {
+    font-family: inherit; font-size: 15px; font-weight: 700;
+    margin: 0; color: var(--ink); flex-shrink: 0;
+    letter-spacing: .2px;
+  }
+  .free-strip .free-summary {
+    color: var(--muted); font-size: 13px; flex: 1;
+    line-height: 1.45;
+  }
+  .free-strip .free-tag {
+    background: rgba(0,0,0,.06); color: var(--muted);
+    font-size: 11.5px; font-weight: 700;
+    padding: 7px 14px; border-radius: 999px;
+    flex-shrink: 0; letter-spacing: .3px;
+  }
+  .free-stay-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 12.5px; font-weight: 600;
+    padding: 7px 16px; border-radius: 999px;
+    cursor: pointer; font-family: inherit;
+    letter-spacing: .2px;
+    flex-shrink: 0;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .free-stay-btn:hover {
+    background: rgba(0,0,0,.04);
+    color: var(--ink);
+    border-color: var(--muted);
+  }
+
+  /* ---------- Risk reversal (compact footer strip) ---------- */
+  .risk-cards { background: transparent; border: 0; padding: 0; margin: 6px 0 14px; }
+  .risk-cards-items {
+    display: flex; justify-content: center; align-items: center;
+    gap: 32px; flex-wrap: wrap;
+  }
+  .risk-card { padding: 0; display: flex; gap: 10px; align-items: center; }
+  .risk-card .ic {
+    width: 30px; height: 30px; border-radius: 7px;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .risk-card .ic.ic-refund { background: var(--green-soft); color: var(--green); }
+  .risk-card .ic.ic-cancel { background: #f1ead9; color: var(--ink); }
+  .risk-card .ic.ic-tax { background: rgba(245, 184, 67, .18); color: var(--gold-deep); }
+  .risk-card h4 { margin: 0; font-size: 13px; font-weight: 700; color: var(--ink); }
+
+  /* ---------- Footer link ---------- */
+  .modal-footer { text-align: center; margin-top: 4px; }
+  .modal-footer a {
+    color: var(--gold-deep); font-weight: 600; font-size: 13.5px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold-deep);
+    padding-bottom: 1px;
+  }
+  .modal-footer a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+  /* ---------- Tablet ---------- */
+  @media (max-width: 980px) {
+    .modal { padding: 40px 28px 28px; }
+    .modal-headline { font-size: 28px; }
+    .plan-grid { grid-template-columns: 1fr; gap: 14px; }
+  }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 640px) {
+    body { background: var(--bg); }
+    .modal-overlay {
+      padding: 0;
+      background: var(--bg);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .modal {
+      border-radius: 0;
+      min-height: 100vh;
+      padding: 56px 18px 28px;
+      box-shadow: none;
+      max-width: 100%;
+    }
+    .modal-close { top: 14px; right: 14px; }
+    .modal-headline { font-size: 24px; line-height: 1.15; }
+    .modal-sub { font-size: 14px; }
+    .trigger-chip { font-size: 10.5px; padding: 5px 12px; }
+    .plan { padding: 20px 18px 18px; }
+    .plan-name { font-size: 24px; }
+    .price { font-size: 30px; }
+    /* Free strip: stack content vertically */
+    .free-strip {
+      flex-direction: column; align-items: stretch; gap: 6px;
+      padding: 14px 16px;
+    }
+    .free-strip .free-summary { margin: 2px 0; }
+    .free-strip .free-tag,
+    .free-strip .free-stay-btn { align-self: flex-start; margin-top: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<button class="reopen-btn hidden" id="reopenBtn">Open upgrade modal</button>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-labelledby="modalHeadline" aria-modal="true">
+    <button class="modal-close" id="modalClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+
+    <header class="modal-header">
+      <h2 class="modal-headline" id="modalHeadline">You're researching like a <span class="accent">pro</span>.</h2>
+      <p class="modal-sub">Don't stop at 5. Unlock 30 reports a month, advanced portfolios, brokerage sync, and more...</p>
+    </header>
+
+    <!-- 2-up plan grid: Premium + Unlimited -->
+    <div class="plan-grid">
+      <!-- Premium -->
+      <article class="plan popular">
+        <div class="ribbon">MOST POPULAR</div>
+        <div class="eyebrow">Growing investors</div>
+        <h2 class="plan-name">Premium</h2>
+        <div class="plan-tag">Make confident decisions with deeper insights</div>
+        <div class="price-row">
+          <span class="price-usd">USD</span>
+          <span class="price">$10.95</span>
+          <span class="price-suffix">/mo</span>
+        </div>
+        <div class="price-billed">$131.40 billed yearly</div>
+        <ul class="features">
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>30 Company Reports per month</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>3 Advanced Portfolios · 30 holdings each</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>5 Watchlists · 100 stocks</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>5 saved screeners &amp; alerts</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Smart updates on holdings &amp; watchlists</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Broker linking</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>AI Chat (Beta)</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Priority Support</li>
+          <li class="muted"><svg class="x-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>Export to Excel &amp; PDF</li>
+        </ul>
+        <div class="cta-area">
+          <button class="btn btn-gold btn-block">Unlock Premium</button>
+          <div class="micro"><strong>No credit card required</strong> · 7-day free trial · cancel anytime</div>
+        </div>
+      </article>
+
+      <!-- Unlimited -->
+      <article class="plan">
+        <div class="eyebrow">Serious investors</div>
+        <h2 class="plan-name">Unlimited</h2>
+        <div class="plan-tag">Full power for maximum returns &amp; control</div>
+        <div class="price-row">
+          <span class="price-usd">USD</span>
+          <span class="price">$21.50</span>
+          <span class="price-suffix">/mo</span>
+        </div>
+        <div class="price-billed">$258.00 billed yearly</div>
+        <ul class="features">
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Unlimited Company Reports</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Unlimited Advanced Portfolios &amp; holdings</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>10 Watchlists · 300 stocks</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>10 saved screeners &amp; alerts</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Smart updates on holdings &amp; watchlists</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Broker linking</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>AI Chat (Beta)</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Priority Support</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Export to Excel &amp; PDF</li>
+        </ul>
+        <div class="cta-area">
+          <button class="btn btn-dark btn-block">Unlock Unlimited</button>
+          <div class="micro"><strong>No credit card required</strong> · 7-day free trial · cancel anytime</div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Free demoted strip -->
+    <div class="free-strip">
+      <h3 class="free-name">Free</h3>
+      <div class="free-summary">5 reports/month · 1 portfolio (10 holdings) · 30-stock watchlist</div>
+      <button class="free-stay-btn" id="stayFreeBtn">Stay on Free</button>
+    </div>
+
+    <!-- Risk reversal -->
+    <div class="risk-cards">
+      <div class="risk-cards-items">
+        <div class="risk-card">
+          <span class="ic ic-refund">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </span>
+          <h4>14-day full refund</h4>
+        </div>
+        <div class="risk-card">
+          <span class="ic ic-cancel">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="8 12 11 15 16 9"/></svg>
+          </span>
+          <h4>Cancel in 2 clicks</h4>
+        </div>
+        <div class="risk-card">
+          <span class="ic ic-tax">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><line x1="9" y1="14" x2="15" y2="8"/><circle cx="9.5" cy="9" r="1"/><circle cx="14.5" cy="13.5" r="1"/></svg>
+          </span>
+          <h4>Tax deductible</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a href="plans-v2.html" target="_blank" rel="noopener">Compare all features</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var overlay = document.getElementById('modalOverlay');
+    var closeBtn = document.getElementById('modalClose');
+    var reopenBtn = document.getElementById('reopenBtn');
+
+    function close() {
+      overlay.classList.add('hidden');
+      reopenBtn.classList.remove('hidden');
+      document.body.style.overflow = '';
+    }
+    function open() {
+      overlay.classList.remove('hidden');
+      reopenBtn.classList.add('hidden');
+    }
+
+    closeBtn.addEventListener('click', close);
+    reopenBtn.addEventListener('click', open);
+
+    var stayFreeBtn = document.getElementById('stayFreeBtn');
+    if (stayFreeBtn) stayFreeBtn.addEventListener('click', close);
+
+    // Close on overlay click (but not when clicking inside the modal)
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) close();
+    });
+
+    // Esc key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !overlay.classList.contains('hidden')) close();
+    });
+  })();
+</script>
+
+</body>
+</html>
