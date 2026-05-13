@@ -260,6 +260,31 @@
     width: 14px; height: 14px;
   }
 
+  /* Feature tooltip */
+  .tip-wrap {
+    position: relative; cursor: help;
+    text-decoration: underline dotted; text-decoration-color: var(--muted);
+    text-decoration-thickness: 1px; text-underline-offset: 3px;
+  }
+  .tip-wrap .tip {
+    position: absolute; bottom: calc(100% + 10px); left: 50%;
+    transform: translateX(-50%);
+    background: #14181c; color: #fff;
+    font-size: 12px; font-weight: 400; line-height: 1.45;
+    padding: 10px 12px; border-radius: 8px;
+    width: 220px; text-align: left;
+    opacity: 0; visibility: hidden;
+    transition: opacity .15s ease, visibility .15s ease;
+    pointer-events: none; z-index: 200;
+    box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  }
+  .tip-wrap .tip::after {
+    content: ''; position: absolute; top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: #14181c;
+  }
+  .tip-wrap:hover .tip, .tip-wrap:focus-within .tip { opacity: 1; visibility: visible; }
+
   /* ---------- Free demoted strip ---------- */
   .free-strip {
     display: flex; align-items: center;
@@ -631,13 +656,13 @@
         </div>
         <div class="price-billed">$131.40 billed yearly</div>
         <ul class="features">
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>30 Company Reports per Month</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>30 Company Reports per month</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>3 Advanced Portfolios · 30 Holdings each</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>5 Watchlists · 100 Stocks</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>5 Screeners with Alerts</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Smart Updates on Portfolios &amp; Watchlists</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Broker Sync</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>AI Chat (Beta)</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg><span class="tip-wrap" tabindex="0">AI Chat<span class="tip" role="tooltip">Currently in Beta</span></span></li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Priority Support</li>
           <li class="muted"><svg class="x-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>Export to Excel &amp; PDF</li>
         </ul>
@@ -662,7 +687,7 @@
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>10 Screeners with Alerts</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Smart Updates on Portfolios &amp; Watchlists</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Broker Sync</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>AI Chat (Beta)</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg><span class="tip-wrap" tabindex="0">AI Chat<span class="tip" role="tooltip">Currently in Beta</span></span></li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Priority Support</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="4 12 10 18 20 6"/></svg>Export to Excel &amp; PDF</li>
         </ul>
